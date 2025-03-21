@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>com.jlmorab.ms</groupId>
-	<artifactId>ms-parent-web</artifactId>
-	<version>0.1.0</version>
+	<artifactId>ms-parent</artifactId>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>ms-parent-web</name>
+	<name>ms-parent</name>
 	<description>Defining dependencies in web projects for the microservices environment</description>
 
 	<developers>
