@@ -12,7 +12,7 @@
 
 	<groupId>com.jlmorab.ms</groupId>
 	<artifactId>ms-parent</artifactId>
-	<version>0.1.1</version>
+	<version>0.2.0</version>
 	<packaging>pom</packaging>
 	<name>ms-parent</name>
 	<description>Defining dependencies in web projects for the microservices environment</description>
@@ -125,7 +125,31 @@
 						-javaagent:"${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar"
 						-Xshare:off
 					</argLine>
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+						<exclude>**/*IntegrationTest.java</exclude>
+					</excludes>
 				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<argLine>${failsafeArgLine}</argLine>
+					<includes>
+						<include>**/*IT.java</include>
+						<include>**/*IntegrationTest.java</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
@@ -134,12 +158,10 @@
 				<version>0.8.12</version>
 				<configuration>
 					<rules>
-						<rule
-							implementation="org.jacoco.maven.RuleConfiguration">
+						<rule implementation="org.jacoco.maven.RuleConfiguration">
 							<element>BUNDLE</element>
 							<limits>
-								<limit
-									implementation="org.jacoco.report.check.Limit">
+								<limit implementation="org.jacoco.report.check.Limit">
 									<counter>INSTRUCTION</counter>
 									<value>COVEREDRATIO</value>
 									<minimum>0.80</minimum>
@@ -166,10 +188,30 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<dataFile>
-								${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-							<outputDirectory>
-								${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>pre-integration-test</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
+							<propertyName>failsafeArgLine</propertyName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>post-integration-test</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
