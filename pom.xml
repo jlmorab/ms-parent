@@ -12,7 +12,7 @@
 
 	<groupId>com.jlmorab.ms</groupId>
 	<artifactId>ms-parent</artifactId>
-	<version>0.2.0</version>
+	<version>0.2.1</version>
 	<packaging>pom</packaging>
 	<name>ms-parent</name>
 	<description>Defining dependencies in web projects for the microservices environment</description>
@@ -36,6 +36,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>21</java.version>
 		<springdoc.version>2.8.4</springdoc.version>
+		<surefireArgLine></surefireArgLine>
+    	<failsafeArgLine></failsafeArgLine>
 	</properties>
 
 	<profiles>
