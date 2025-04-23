@@ -12,7 +12,7 @@
 
 	<groupId>com.jlmorab.ms</groupId>
 	<artifactId>ms-parent</artifactId>
-	<version>0.2.2-SNAPSHOT</version>
+	<version>0.2.2</version>
 	<packaging>pom</packaging>
 	<name>ms-parent</name>
 	<description>Defining dependencies in web projects for the microservices environment</description>
